@@ -1,0 +1,10 @@
+<problem display_name="Multiple Choice" markdown="&#10;&gt;&gt;What is a service mesh? &lt;&lt;&#10;&#10;( ) A tool that allows to continuously deliver micro services in cloud environments with an emphasis on testing these environments&#10;(x) A tool that helps with discovery, load balancing, failure recovery, metrics, and monitoring of micro services&#10;( ) A tool that manages large scale systems and their security, it enables vulnerability detection and prevents some of the known attacks&#10;">
+  <multiplechoiceresponse>
+    <label>What is a service mesh? </label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">A tool that allows to continuously deliver micro services in cloud environments with an emphasis on testing these environments</choice>
+      <choice correct="true">A tool that helps with discovery, load balancing, failure recovery, metrics, and monitoring of micro services</choice>
+      <choice correct="false">A tool that manages large scale systems and their security, it enables vulnerability detection and prevents some of the known attacks</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

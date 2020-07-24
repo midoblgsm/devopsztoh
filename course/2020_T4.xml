@@ -1,0 +1,10 @@
+<course advanced_modules="[&quot;survey&quot;, &quot;poll&quot;]" advertised_start="null" allow_anonymous_to_peers="true" cert_html_view_enabled="true" course_image="devops2.png" display_name="DevOps Zero to Hero" display_organization="Horizon" enable_subsection_gating="true" end="&quot;2020-12-30T00:00:00+00:00&quot;" enrollment_end="&quot;2020-06-06T00:00:00+00:00&quot;" enrollment_start="&quot;2020-04-16T00:00:00+00:00&quot;" instructor_info="{&quot;instructors&quot;: [&quot;Mohamed Mohamed&quot;]}" is_new="true" language="en" learning_info="[&quot;Go Programming&quot;, &quot;Test Driven Development&quot;, &quot;CICD&quot;, &quot;Containers&quot;, &quot;Kubernetes&quot;, &quot;Istio&quot;]" no_grade="true" start="&quot;2020-09-01T07:00:00+00:00&quot;" use_latex_compiler="false" user_partitions="[{&quot;name&quot;: &quot;Content Groups&quot;, &quot;parameters&quot;: {}, &quot;version&quot;: 3, &quot;groups&quot;: [{&quot;version&quot;: 1, &quot;id&quot;: 259929471, &quot;name&quot;: &quot;Horizon&quot;}], &quot;active&quot;: true, &quot;scheme&quot;: &quot;cohort&quot;, &quot;id&quot;: 295759537, &quot;description&quot;: &quot;The groups in this configuration can be mapped to cohorts in the Instructor Dashboard.&quot;}]" video_upload_pipeline="{}">
+  <chapter url_name="fbe49b4ba1bb4755bd9bb2a10301417e"/>
+  <chapter url_name="8384acc30c9445ffbb5c79f96e03faa1"/>
+  <chapter url_name="de94d49b45504444bd77570b4a1c3cef"/>
+  <chapter url_name="27520e992c0c4811a3186cf847d7e967"/>
+  <chapter url_name="0872319932064b06aa0af9c0e0431ca3"/>
+  <chapter url_name="d426c6b7e9b240c08a2b3b0f83743aaf"/>
+  <chapter url_name="e9ce06d07cd04261a71c446e99f2389b"/>
+  <wiki slug="Horizon.DevOps2.2020_T4"/>
+</course>

@@ -1,0 +1,79 @@
+<p style="text-rendering: optimizelegibility; margin-top: 20px; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;">Back to our&nbsp;distributed application composed of 3 parts:</p>
+<p style="text-rendering: optimizelegibility; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;"></p>
+<p style="text-rendering: optimizelegibility; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;"><img height="179" width="848" src="http://studiocloud.wethink.info/assets/courseware/v1/1886e242b9b8e25fe5a1e12ded071f22/asset-v1:Horizon+DevOps1+2020_t2+type@asset+block/multipode1.png" alt="multipod1" style="text-rendering: optimizelegibility; border: 0px; margin: 0px auto; padding: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: 1.4em; font-family: inherit; vertical-align: baseline; display: block;" /></p>
+<p></p>
+<ul style="text-rendering: optimizelegibility; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;"></ul>
+<p></p>
+<p style="text-rendering: optimizelegibility; margin: 20px 0px 1.416em; padding: 0px; border: 0px; outline: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; font-size: 16px; line-height: 1.6em !important; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-style: initial; text-decoration-color: initial;">To deploy this to Kubernetes, we need a Deployment per component. We need also to expose these components using services. In order to access the frontend (that is the only component that we need to expose externally to the cluster), I will use an ingress to do that. All the configuration files that I will need are in this <a href="https://github.com/midoblgsm/multipods/tree/master/k8s" target="_blank">link</a>.</p>
+<p style="text-rendering: optimizelegibility; margin: 20px 0px 1.416em; padding: 0px; border: 0px; outline: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; font-size: 16px; line-height: 1.6em !important; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-style: initial; text-decoration-color: initial;">Let's start by deploying the ratings component and exposing it. Let's create a ratings-deployment.yaml:</p>
+<pre style="color: #000000;">apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: ratings
+    version: 'k8s1'
+  name: ratings
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
+      version: 'k8s1'
+  template:
+    metadata:
+      labels:
+        app: ratings
+        version: 'k8s1'
+    spec:
+      containers:
+        - image: midoblgsm/go-ratings:k8s1
+          name: ratings
+          ports:
+            - containerPort: 9998</pre>
+<p style="text-rendering: optimizelegibility; margin: 20px 0px 1.416em; padding: 0px; border: 0px; outline: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; font-size: 16px; line-height: 1.6em !important; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-style: initial; text-decoration-color: initial;">Now we can apply this configuration using kubectl:</p>
+<pre style="box-sizing: border-box; font-family: Roboto, sans-serif; background: none #f8f8f8; margin-top: 20px; margin-bottom: 20px; border: 0px; padding: 15px; position: relative; overflow-x: auto; color: #000000; font-size: 14px; tab-size: 4;"><span color="#303030" face="Roboto Mono, monospace" style="color: #303030; font-family: 'Roboto Mono', monospace;">$ kubectl apply -f ratings-deployment.yaml<br /></span>deployment.apps/ratings created</pre>
+<p style="text-rendering: optimizelegibility; margin: 20px 0px 1.416em; padding: 0px; border: 0px; outline: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; font-size: 16px; line-height: 1.6em !important; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: #ffffff; text-decoration-style: initial; text-decoration-color: initial;">You can check that your container is running&nbsp;</p>
+<pre style="box-sizing: border-box; font-family: Roboto, sans-serif; background: none #f8f8f8; margin-top: 20px; margin-bottom: 20px; border: 0px; padding: 15px; position: relative; overflow-x: auto; color: #000000; font-size: 14px; tab-size: 4;"><span color="#303030" face="Roboto Mono, monospace" style="color: #303030; font-family: 'Roboto Mono', monospace;">$ kubectl get pods<br /></span>NAME                          READY   STATUS    RESTARTS   AGE
+ratings-5bdfd55cfc-kzlck   1/1     Running   0          3m6s</pre>
+<p>If the pod is not in a Running state you can check if there is any error message by running kubectl describe pod.</p>
+<p>Now we need to expose the service, so let's create a ratings-service.yaml:&nbsp;</p>
+<pre style="color: #000000;">apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: ratings
+  name: ratings
+spec:
+  ports:
+    - name: '9998'
+      port: 9998
+      targetPort: 9998
+  selector:
+    app: ratings</pre>
+<p>This service is mapping to any Pod that has the label app=ratings.</p>
+<p>Next we will do exactly the same thing with the products and frontend deployments. Please use the deployment and service files in the&nbsp;<a href="https://github.com/midoblgsm/multipods/blob/master/k8s/ratings-service.yaml" target="_blank">github</a> repository to do that.</p>
+<p>Finally, we need to expose the frontend service using an ingress. In order to do that, if you are using minikube, you need to enable the ingress addon:</p>
+<pre style="box-sizing: border-box; font-family: Roboto, sans-serif; background: none #f8f8f8; margin-top: 20px; margin-bottom: 20px; border: 0px; padding: 15px; position: relative; overflow-x: auto; color: #000000; font-size: 14px; tab-size: 4;"><code class="language-shell" data-lang="shell" style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; background-color: #f7f7f7; margin: 0px; border: 0px; display: inline-block; color: #303030; vertical-align: baseline;">$ minikube addons enable ingress</code></pre>
+<p>And let's&nbsp;create the frontend-ingress.yaml file or reuse the one from github.</p>
+<pre style="color: #000000;">apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: frontend
+spec:
+  rules:
+    - host: products.example
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: frontend
+              servicePort: 8989</pre>
+<p>This is basically exposing the endpoint products.example. Any call coming to that endpoint will be forwarded to the service frontend on port 8989.</p>
+<p>We can apply this configuration using kubectl:</p>
+<p><span style="color: #303030; font-family: 'Roboto Mono', monospace; font-size: 14px; letter-spacing: 0.1px; background-color: #f7f7f7;">$ kubectl&nbsp;apply -f frontend-ingress.yaml</span></p>
+<p>Now we need to make a small tweak to make it run using the mentioned DNS (products.example). We need to get minikube IP address and map it to that DNS in our /etc/hosts. This manipulation is not required if you are not using minikube.</p>
+<pre style="box-sizing: border-box; background: none #f8f8f8; margin-top: 20px; margin-bottom: 20px; border: 0px; padding: 15px; position: relative; overflow-x: auto; tab-size: 4;"><code class="language-shell" data-lang="shell" style="box-sizing: border-box; background-color: #f7f7f7; margin: 0px; border: 0px; display: inline-block; vertical-align: baseline;"><span color="#303030" face="Roboto Mono, monospace" style="color: #303030; font-family: 'Roboto Mono', monospace;"><span style="font-size: 14px;">$ minikube ip <br />192.168.64.10<br /></span></span></code></pre>
+<p>Now we can edit /etc/hosts and add a new line with:&nbsp;<span style="color: rgb(0, 128, 0);">192.168.64.10 products.example</span>. Afterwords, you should be able to access the frontend at&nbsp;<a href="http://products.example" target="_blank">http://products.example</a>.</p>
+<p>During our live session we will do the same manipulations. I will also show you how you can change the code and build your own containers. Please save your questions for the live.</p>
+<p>All of these manipulations could be done with a single command after setting up minikube, go to the root of the github repository that I shared (<a href="https://github.com/midoblgsm/multipods/tree/master/k8s" target="_blank">https://github.com/midoblgsm/multipods/tree/master/k8s</a><span style="font-size: 1em;">) and run this:</span></p>
+<pre style="box-sizing: border-box; background: none #f8f8f8; margin-top: 20px; margin-bottom: 20px; border: 0px; padding: 15px; position: relative; overflow-x: auto; tab-size: 4;"><code class="language-shell" data-lang="shell" style="box-sizing: border-box; background-color: #f7f7f7; margin: 0px; border: 0px; display: inline-block; vertical-align: baseline;"><span color="#303030" face="Roboto Mono, monospace" style="color: #303030; font-family: 'Roboto Mono', monospace;"><span style="font-size: 14px;">$ kubectl apply -f .</span></span></code></pre>

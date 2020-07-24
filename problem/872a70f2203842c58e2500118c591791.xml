@@ -1,0 +1,15 @@
+<problem display_name="Slices" markdown="&gt;&gt;Which of the following function can be used to copy a slice to another slice in Go?&lt;&lt;&#10;&#10;&#10;() append() {{append() is used to append an element to the slice}}&#10;(x) copy() {{Using copy() function, contents of a source slice are copied to destination slice.}}&#10;() resize() {{resize() is used to change the size of a slice}}&#10;() none of the above {{Think harder}}&#10;&#10;&#10;">
+  <multiplechoiceresponse>
+    <label>Which of the following function can be used to copy a slice to another slice in Go?</label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">append() <choicehint>append() is used to append an element to the slice</choicehint>
+</choice>
+      <choice correct="true">copy() <choicehint>Using copy() function, contents of a source slice are copied to destination slice.</choicehint>
+</choice>
+      <choice correct="false">resize() <choicehint>resize() is used to change the size of a slice</choicehint>
+</choice>
+      <choice correct="false">none of the above <choicehint>Think harder</choicehint>
+</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

@@ -1,0 +1,20 @@
+<problem display_name="TDD" markdown="&gt;&gt;What are some advantages of TDD?&lt;&lt;&#10;&#10;( )A- It is used as a replacement to documentation{{TDD can be a good part of the documentation but it is not meant to replace documentation.}}&#10;()B- It reduce the amount of functional code {{What else}}&#10;()C- It ensures that the functional code respects the specifications {{What else}}&#10;()D- It allows to fail fast and detect issues in an early stage {{What else}}&#10;()E- It reduces the complexity of the code {{Well, this is not a direct impact of TDD but it can indirectly reduce the complexity by removing non needed code}}&#10;()F- A and E {{Not quite right}}&#10;(x) B, C and D&#10;&#10;&#10;">
+  <multiplechoiceresponse>
+    <label>What are some advantages of TDD?</label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">A- It is used as a replacement to documentation <choicehint>TDD can be a good part of the documentation but it is not meant to replace documentation.</choicehint>
+</choice>
+      <choice correct="false">B- It reduce the amount of functional code <choicehint>What else</choicehint>
+</choice>
+      <choice correct="false">C- It ensures that the functional code respects the specifications <choicehint>What else</choicehint>
+</choice>
+      <choice correct="false">D- It allows to fail fast and detect issues in an early stage <choicehint>What else</choicehint>
+</choice>
+      <choice correct="false">E- It reduces the complexity of the code <choicehint>Well, this is not a direct impact of TDD but it can indirectly reduce the complexity by removing non needed code</choicehint>
+</choice>
+      <choice correct="false">F- A and E <choicehint>Not quite right</choicehint>
+</choice>
+      <choice correct="true">B, C and D</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

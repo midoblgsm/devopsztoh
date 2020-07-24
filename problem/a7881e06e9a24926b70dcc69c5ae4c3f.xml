@@ -1,0 +1,10 @@
+<problem display_name="Multiple Choice" markdown="&gt;&gt;What Jaeger is used for &lt;&lt;&#10;&#10;(x) Distributed tracing&#10;( ) Synthetic monitoring&#10;( ) Visualization of the service mesh&#10;">
+  <multiplechoiceresponse>
+    <label>What Jaeger is used for </label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="true">Distributed tracing</choice>
+      <choice correct="false">Synthetic monitoring</choice>
+      <choice correct="false">Visualization of the service mesh</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

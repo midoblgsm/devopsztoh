@@ -1,0 +1,20 @@
+<p style="text-align: center;"><img height="199" width="1076" src="/static/concourse-sample-pipeline.gif" alt="concourse" /></p>
+<p>CI/CD stands for Continuous Integration and Continuous Delivery. A CI/CD pipeline helps you automate steps in your software delivery process, such as initiating code builds, running automated tests, and deploying to your environment. Automated pipelines remove manual errors, provide standardized development feedback loops and enable fast product iterations.</p>
+<p>CI, short for Continuous Integration, is a software development practice in which all developers merge code changes in a central repository multiple times a day. CD stands for Continuous Delivery, which on top of Continuous Integration adds the practice of automating the entire software release process. With CI, each change in code triggers an automated build-and-test sequence for the given project, providing feedback to the developer(s) who made the change.</p>
+<p>Continuous Delivery includes infrastructure provisioning and deployment, which may be manual and consist of multiple stages. What&rsquo;s important is that all these processes are fully automated, with each run fully logged and visible to the entire team.</p>
+<p>A CI/CD pipeline has different stages that can be illustrated in the following:</p>
+<ul>
+<li>Source: in general a CI/CD pipeline is triggered by a code change that is pushed to a version control system like git.</li>
+<li>Build: after any code change is&nbsp;detected the code will be built to check any errors in compilation.&nbsp;Failure to pass the build stage is an indicator of a fundamental problem in the code and it&rsquo;s best to address it immediately.</li>
+<li>Test: in this stage automated tests are run against the code to check the correctness of the behavior of the product, good tests mean less bugs reaching the end user. The test can go from a simple unit test, to smoke tests, to end-to-end and integration tests that can be more complicated. Writing the tests is the responsibility of the developers and is best done while running the code.&nbsp;Failure during the test stage exposes problems in code that developers didn&rsquo;t foresee when writing the code.</li>
+<li>Deploy: in this stage the code passed the build and tests and is ready to be deployed, generally the code can be deployed to different environments starting with a test environment where the deployment can be automatic, more advance environments such as staging and production might require some manual intervention. For the teams that are using CI/CD since a while, they built enough tests and safety nets that allows them to deploy automatically even to production. Failure during this phase can be critical since it is very close to the end users.</li>
+</ul>
+<h4>Benefits of CI/CD:</h4>
+<ul>
+<li>Developers can stay focused on writing code and monitoring the behavior of the system in production.</li>
+<li>QA and product stakeholders have easy access to the latest, or any, version of the system.</li>
+<li>Product updates are smooth and not stressful anymore.</li>
+<li>Logs of all code changes, test and deployments are available for inspection at any time.</li>
+<li>Rolling back to a previous version in the event of a problem is a routine push-button action.</li>
+<li>A fast feedback loop helps build an organizational culture of learning and responsibility.</li>
+</ul>

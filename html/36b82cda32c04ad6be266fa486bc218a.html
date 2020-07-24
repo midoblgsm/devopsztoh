@@ -1,0 +1,28 @@
+<p>To get started, you need first to install docker in your machine. Please follow the specific instructions related to your operating system in this&nbsp;<a href="https://docs.docker.com/get-docker/" target="_blank">link</a>&nbsp;to install docker. If you are using a linux system, and for your convenience, follow these&nbsp;<a href="https://docs.docker.com/engine/install/linux-postinstall/" target="_blank">steps</a> to be able to use docker without the need for sudo in each time. If you are stuck at any point, please try to google it, there are plenty of resources in the internet. If your problem persists, please reach out to me and I can try to help. To test your setup you can do the following:</p>
+<pre class="highlight" style="box-sizing: border-box; overflow: auto; padding: 9.5px; margin-top: 0px; margin-bottom: 10px; line-height: 1.42857; background-color: #f5f5f5; border: 1px solid #cccccc; border-radius: 4px; word-break: normal !important;"><code style="box-sizing: border-box; border-radius: 0px; overflow-x: auto; overflow-wrap: normal;"><span class="nv" style="color: #00688b; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; white-space: pre; box-sizing: border-box;">$ docker run hello-world</span><span color="rgba(0, 0, 0, 0)" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: rgba(0, 0, 0, 0); font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="white-space: pre;">docker run hello-world<br /></span></span><span color="#333333" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: #333333; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="font-size: 13px; white-space: pre;">Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+0e03bdcc26d7: Pull complete
+Digest: sha256:8e3114318a995a1ee497790535e7b88365222a21771ae7e53687ad76563e8e76
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/</span></span><span color="rgba(0, 0, 0, 0)" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: rgba(0, 0, 0, 0); font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="white-space: pre;"><br /></span></span></code></pre>
+<p>This is basically running a docker image that says "<em>Hello from Docker!". </em>If you don't see a similar output, then there is something that you need to fix before proceeding any further.</p>

@@ -1,0 +1,14 @@
+[
+    {
+        "content": "Welcome to the course. \nThis course is intended to introduce you to Go programming, TDD with Go, conatinerization using Docker and Kubernetes, using CICD for your projects and using a Service Mesh for traffic management and observability.", 
+        "date": "April 29, 2020", 
+        "id": 1, 
+        "status": "visible"
+    }, 
+    {
+        "content": "Our first live session is scheduled for tomorrow at 9 PM.\nPlease use this link https://bit.ly/2YiKTYa to join the live.\nTry to join 5 to 10 minutes early so we can chat a bit.", 
+        "date": "May 2, 2020", 
+        "id": 2, 
+        "status": "visible"
+    }
+]

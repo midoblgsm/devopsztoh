@@ -1,0 +1,11 @@
+<problem display_name="Quiz" markdown="&gt;&gt;How you can expose a workload externally of the cluster&lt;&lt;&#10;&#10;[x] Using a Load Balancer Service&#10;[ ] Using a clusterIP service&#10;[x] Using a NodePort service&#10;[x] Using an ingress and a service&#10;">
+  <choiceresponse>
+    <label>How you can expose a workload externally of the cluster</label>
+    <checkboxgroup>
+      <choice correct="true">Using a Load Balancer Service</choice>
+      <choice correct="false">Using a clusterIP service</choice>
+      <choice correct="true">Using a NodePort service</choice>
+      <choice correct="true">Using an ingress and a service</choice>
+    </checkboxgroup>
+  </choiceresponse>
+</problem>

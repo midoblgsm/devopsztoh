@@ -1,0 +1,28 @@
+<p>Once we have Concourse ready, we can start setting up a pipeline for our use case (shopping cart). In your terminal, please go back to the repository that contains our code and checkout the cicd branch.</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;">$ git checkout cicd</code></pre>
+<p>Now you can open the folder in your favorite editor. Let's create a file that will contain our pipeline description:</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;">$ cat pipeline.yaml<br />resources:
+  - name: shopping-cart
+    type: git
+    source:
+      uri: git@github.com:midoblgsm/shoppingcart.git
+      branch: master
+      private_key: ((private-repo-key))
+jobs:
+  - name: run-units-for-shopping-cart
+    public: true
+    plan:
+      - get: shopping-cart
+        trigger: true
+      - task: unit-tests
+        file: shopping-cart/ci/unit_tests.yaml</code></pre>
+<p><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;">This simple pipeline consists of two parts: <em>resources</em> and <em>jobs.</em></code></p>
+<p><span face="Iosevka, monospace" style="font-family: Iosevka, monospace;">Concourse deals only with <em>resources</em>, <em>tasks</em> and <em>jobs</em>. Resources are the input and output artifacts managed in the pipeline. These resources are acted upon by jobs that describe how to manipulate the resources&nbsp;and how to order them. A job has plan comprised of tasks that can be seens as functions to be applied on the resources. In our example, we have only one resource that represent our git repository using a particular branch and a particular ssh private key. The pipeline also has one job to run unit tests. The plan of this job is to get the resource and execute the unit-test task from the referred file. The only missing information here is the private_key. This information is a variable that should be provided to concourse to be able to deploy the pipeline. You can create a separate file containing your variables to keep it more secure and make sure to not upload it to any CVS system such as github. See how my keys.yaml file looks like:</span></p>
+<p></p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;">$ cat keys.yaml
+private-repo-key: |
+  -----BEGIN OPENSSH PRIVATE KEY-----<br />            .....<br />  -----END OPENSSH PRIVATE KEY-----</code></pre>
+<p>Now we are ready to deploy our pipeline:</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;"><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;">$ fly -t devops set-pipeline -p shopping-cart -c pipeline.yaml --load-vars-from keys.yaml<br />...<br />...<br /></span></span><span face="Iosevka, monospace" style="font-family: Iosevka, monospace;">apply configuration? [yN]:</span><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;"><br /></span></span></code></pre>
+<p>You should be able to check your configuration changes every time you try to update the pipeline. If everything looks good you can answer "y" and your pipeline will be configured.</p>
+<p><img height="600" width="1800" src="/static/pipeline.png" alt="concoursedashboard" />Your pipeline might be paused when you first create it so you need to hit the play button in the dashboard. Congratulations, you have your first pipeline setup. Now let's add more resources and tasks.</p>

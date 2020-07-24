@@ -1,0 +1,21 @@
+<p>Before proceeding further, if you want to run the following examples you need to have access to a Kubernetes environment.</p>
+<p>The easiest way to have your own environment is to setup minikube. Minikube is a one node kubernetes cluster that uses virtualisation to install everything in you machine with almost all the functionality that we need to try. Please follow this link to install minikube:&nbsp;<a href="https://kubernetes.io/docs/tasks/tools/install-minikube/" target="_blank">https://kubernetes.io/docs/tasks/tools/install-minikube/</a></p>
+<p>After installing minikube you can start a cluster using the following command:</p>
+<pre style="box-sizing: border-box; background: none #f8f8f8; margin-top: 20px; margin-bottom: 20px; border: 0px; padding: 15px; position: relative; overflow-x: auto; tab-size: 4;"><span color="#303030" face="Roboto Mono, monospace" style="color: #303030; font-family: 'Roboto Mono', monospace;"><span style="font-size: 14px;">$ minikube start --memory 4096  --cpus 4</span></span><span color="#000000" face="Roboto, sans-serif" style="color: #000000; font-family: Roboto, sans-serif;"><span style="font-size: 14px;"><br /></span></span></pre>
+<p>I am specifying the amount of memory and CPU to be used and this is the minimum required for the rest of our sessions. You can start this session with less resources, but going forward with istio it is gonna be a blocker.</p>
+<p>Minikube allows you to try any feature in kubernetes and it is very easy to create and delete clusters.</p>
+<p>A successful installation looks like the following:</p>
+<pre style="box-sizing: border-box; background: none #f8f8f8; margin-top: 20px; margin-bottom: 20px; border: 0px; padding: 15px; position: relative; overflow-x: auto; tab-size: 4;"><span color="#303030" face="Roboto Mono, monospace" style="color: #303030; font-family: 'Roboto Mono', monospace;"><span style="font-size: 14px;"><span color="#303030" face="Roboto Mono, monospace" style="color: #303030; font-family: 'Roboto Mono', monospace;"><span style="font-size: 14px;">$ minikube start --memory 4096  --cpus 4<br />  minikube 1.9.2 is available! Download it: https://github.com/kubernetes/minikube/releases/tag/v1.9.2
+  To disable this notice, run: 'minikube config set WantUpdateNotification false'
+
+  minikube v1.8.2 on Darwin 10.15.4
+  Automatically selected the hyperkit driver. Other choices: virtualbox, docker
+  Creating hyperkit VM (CPUs=4, Memory=4096MB, Disk=20000MB) ...
+  Preparing Kubernetes v1.17.3 on Docker 19.03.6 ...
+  Launching Kubernetes ...
+  Enabling addons: default-storageclass, storage-provisioner
+⌛  Waiting for cluster to come online ...
+  Done! kubectl is now configured to use "minikube"<br /></span></span></span></span></pre>
+<p>After that you can start interacting with your cluster using kubernetes CLI kubectl:</p>
+<pre style="box-sizing: border-box; font-family: Roboto, sans-serif; background: none #f8f8f8; margin-top: 20px; margin-bottom: 20px; border: 0px; padding: 15px; position: relative; overflow-x: auto; color: #000000; font-size: 16px; tab-size: 4;"><code class="language-shell" data-lang="shell" style="box-sizing: border-box; font-family: 'Roboto Mono', monospace; background-color: #f7f7f7; margin: 0px; border: 0px; display: inline-block; color: #303030; vertical-align: baseline; font-size: 14px;">$ kubectl create deployment hello-minikube --image<span style="box-sizing: border-box; background: none; margin: 0px; border: 0px; color: #666666;">=</span>k8s.gcr.io/echoserver:1.10</code></pre>
+<p>This creates a deployment based on the specified docker image. Now we are finally ready to deploy our application to Kubernetes. Yayyy&nbsp;<span style="font-size: 14px; color: #303030; font-family: 'Roboto Mono', monospace; background-color: #f8f8f8; white-space: pre-wrap;"></span><span style="font-size: 14px; color: #303030; font-family: 'Roboto Mono', monospace; background-color: #f8f8f8; white-space: pre-wrap;"></span><span style="font-size: 14px; color: #303030; font-family: 'Roboto Mono', monospace; background-color: #f8f8f8; white-space: pre-wrap;"></span><span style="font-size: 1em;">!</span></p>

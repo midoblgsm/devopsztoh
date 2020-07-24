@@ -1,0 +1,10 @@
+<problem display_name="Quiz" markdown="&gt;&gt;What is the difference between git and github &lt;&lt;&#10;&#10;( ) They are both the same implementation for the standard&#10;()  Git is a system to control code versioning and github is website&#10;(x) Git is a tool to manage source code, while GitHub is a service that hosts git repositories&#10;">
+  <multiplechoiceresponse>
+    <label>What is the difference between git and github </label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">They are both the same implementation for the standard</choice>
+      <choice correct="false">Git is a system to control code versioning and github is website</choice>
+      <choice correct="true">Git is a tool to manage source code, while GitHub is a service that hosts git repositories</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

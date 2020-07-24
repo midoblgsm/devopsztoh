@@ -1,0 +1,26 @@
+<p>Dockerfiles can vary in complexity based on the application being developed. Some applications require more configurations and can have really complicated docker files. In our use case, our configuration is not that complicated. It can be as easy as adding the following Dockerfile to the root of our shoppingcart folder:</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;">FROM golang
+RUN mkdir /shoppingcart
+WORKDIR /shoppingcart
+COPY go.mod . 
+COPY go.sum .
+
+# Get dependencies 
+RUN go mod download
+# COPY the source code as the last step
+COPY . .
+
+# Build the binary
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /go/bin/shoppingcart
+ENTRYPOINT ["/go/bin/shoppingcart"]</code></pre>
+<p>Here, we are also starting from a golang image. Where we create a folder to host our work "shoppingcart". Afterwards, we copy the go mod files to download our dependencies. Once we got all the dependencies, we copy over all our code and build our shoppingcart binary. Finally we let docker know that our container entrypoint is the binary that we just built.</p>
+<p>Let's build our image and run it:</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;">$ docker  build -t shoppingcart .
+$ docker run -p 7778:7778 shoppingcart:latest
+2020/04/26 18:38:09 Starting shoppingcart on port 7778 ....
+2020/04/26 18:38:09 CTL-C to exit/stop shoppingcart service</code></pre>
+<p>Our server just started and we can start testing. We can do all the tests we did previously. Here I will only create an item and retrieve all the items:</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;"><span color="#244357" face="Ubuntu Mono, consolas, monaco, monospace" style="color: #244357; font-family: 'Ubuntu Mono', consolas, monaco, monospace;"><span style="font-size: 11.9px; white-space: pre;">$ curl -XPOST http://localhost:7778/v1/item -H "Content-Type: application/json"  --data '{"item":{"id":"vg2","name":"pepper","quantity":1,"price":2}}'
+{"error":null}<br /></span></span><span face="Ubuntu Mono, consolas, monaco, monospace" style="font-family: 'Ubuntu Mono', consolas, monaco, monospace;"><span style="font-size: 11.9px; white-space: pre;">$ curl -XGET http://localhost:7778/v1/cart/items
+{"items":{"vg2":{"id":"vg2","name":"pepper","price":2,"quantity":1}},"error":null}</span></span><span color="#244357" face="Ubuntu Mono, consolas, monaco, monospace" style="color: #244357; font-family: 'Ubuntu Mono', consolas, monaco, monospace;"><span style="font-size: 11.9px; white-space: pre;"><br /></span></span></code></pre>
+<h4></h4>

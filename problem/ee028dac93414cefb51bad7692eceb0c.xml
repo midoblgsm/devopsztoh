@@ -1,0 +1,11 @@
+<problem display_name="Quiz" markdown="&gt;&gt;What are some features of kubernetes&lt;&lt;&#10;&#10;[x] Service Discovery&#10;[x] Storage Orchestration&#10;[x] Self Healing&#10;[] Data Visualization&#10;">
+  <choiceresponse>
+    <label>What are some features of kubernetes</label>
+    <checkboxgroup>
+      <choice correct="true">Service Discovery</choice>
+      <choice correct="true">Storage Orchestration</choice>
+      <choice correct="true">Self Healing</choice>
+      <choice correct="false">Data Visualization</choice>
+    </checkboxgroup>
+  </choiceresponse>
+</problem>

@@ -1,0 +1,104 @@
+{
+    "course/2020_T4": {
+        "advanced_modules": [
+            "survey", 
+            "poll"
+        ], 
+        "advertised_start": null, 
+        "allow_anonymous_to_peers": true, 
+        "cert_html_view_enabled": true, 
+        "course_image": "devops2.png", 
+        "discussion_topics": {
+            "General": {
+                "id": "course"
+            }
+        }, 
+        "display_name": "DevOps Zero to Hero", 
+        "display_organization": "Horizon", 
+        "enable_subsection_gating": true, 
+        "end": "2020-12-30T00:00:00Z", 
+        "enrollment_end": "2020-06-06T00:00:00Z", 
+        "enrollment_start": "2020-04-16T00:00:00Z", 
+        "instructor_info": {
+            "instructors": [
+                "Mohamed Mohamed"
+            ]
+        }, 
+        "is_new": true, 
+        "language": "en", 
+        "learning_info": [
+            "Go Programming", 
+            "Test Driven Development", 
+            "CICD", 
+            "Containers", 
+            "Kubernetes", 
+            "Istio"
+        ], 
+        "no_grade": true, 
+        "start": "2020-09-01T07:00:00Z", 
+        "tabs": [
+            {
+                "course_staff_only": false, 
+                "name": "Home", 
+                "type": "course_info"
+            }, 
+            {
+                "course_staff_only": false, 
+                "name": "Course", 
+                "type": "courseware"
+            }, 
+            {
+                "course_staff_only": false, 
+                "name": "Textbooks", 
+                "type": "textbooks"
+            }, 
+            {
+                "course_staff_only": false, 
+                "name": "Discussion", 
+                "type": "discussion"
+            }, 
+            {
+                "course_staff_only": false, 
+                "name": "Wiki", 
+                "type": "wiki"
+            }, 
+            {
+                "course_staff_only": false, 
+                "name": "Progress", 
+                "type": "progress"
+            }, 
+            {
+                "course_staff_only": false, 
+                "name": "Calendar", 
+                "type": "static_tab", 
+                "url_slug": "451c6e4e753d40aa80f9411a621ace3a"
+            }
+        ], 
+        "use_latex_compiler": false, 
+        "user_partitions": [
+            {
+                "active": true, 
+                "description": "The groups in this configuration can be mapped to cohorts in the Instructor Dashboard.", 
+                "groups": [
+                    {
+                        "id": 259929471, 
+                        "name": "Horizon", 
+                        "version": 1
+                    }
+                ], 
+                "id": 295759537, 
+                "name": "Content Groups", 
+                "parameters": {}, 
+                "scheme": "cohort", 
+                "version": 3
+            }
+        ], 
+        "video_upload_pipeline": {}, 
+        "xml_attributes": {
+            "filename": [
+                "course/2020_t2.xml", 
+                "course/2020_t2.xml"
+            ]
+        }
+    }
+}

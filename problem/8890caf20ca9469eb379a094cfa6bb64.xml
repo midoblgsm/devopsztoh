@@ -1,0 +1,11 @@
+<problem display_name="Quiz" markdown="&gt;&gt;What is the basic execution unit in Kubernetes  &lt;&lt;&#10;&#10;[ ] A Job&#10;[ ] A Service&#10;[x] A Pod&#10;[ ] A Container&#10;">
+  <choiceresponse>
+    <label>What is the basic execution unit in Kubernetes  </label>
+    <checkboxgroup>
+      <choice correct="false">A Job</choice>
+      <choice correct="false">A Service</choice>
+      <choice correct="true">A Pod</choice>
+      <choice correct="false">A Container</choice>
+    </checkboxgroup>
+  </choiceresponse>
+</problem>

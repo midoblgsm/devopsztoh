@@ -1,0 +1,14 @@
+<problem display_name="Checkboxes" markdown="&gt;&gt;What are some of the concepts that istio defines to be used for traffic management?&lt;&lt;&#10;&#10;[x] Gateways&#10;[ ] Load Balancers&#10;[ ] Kubernetes Services&#10;[x] Virtual Services&#10;[x] Destination Rules&#10;[ ] Firewall Rules&#10;[ ] Network Policies">
+  <choiceresponse>
+    <label>What are some of the concepts that istio defines to be used for traffic management?</label>
+    <checkboxgroup>
+      <choice correct="true">Gateways</choice>
+      <choice correct="false">Load Balancers</choice>
+      <choice correct="false">Kubernetes Services</choice>
+      <choice correct="true">Virtual Services</choice>
+      <choice correct="true">Destination Rules</choice>
+      <choice correct="false">Firewall Rules</choice>
+      <choice correct="false">Network Policies</choice>
+    </checkboxgroup>
+  </choiceresponse>
+</problem>

@@ -1,0 +1,10 @@
+<problem display_name="Quiz" markdown="&gt;&gt;What a CI/CD stands for. &lt;&lt;&#10;&#10;( ) Control Integrity and Control Deploy&#10;(x) Continuous Integration and Continuous Delivery&#10;( ) Code Info and Code Details&#10;">
+  <multiplechoiceresponse>
+    <label>What a CI/CD stands for. </label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">Control Integrity and Control Deploy</choice>
+      <choice correct="true">Continuous Integration and Continuous Delivery</choice>
+      <choice correct="false">Code Info and Code Details</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

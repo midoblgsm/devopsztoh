@@ -1,0 +1,216 @@
+<p>Istio offers many powerful observability features. We will cover few of them in this section.&nbsp;We will cover the following:</p>
+<ul>
+<li>How Kiali enables the visualization of the service mesh</li>
+<li>Prometheus and Grafana for monitoring my workload</li>
+<li>Jaeger for the distributed tracing of my application</li>
+</ul>
+<p style="text-rendering: optimizelegibility; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;">Let's start by setting up a domain that we will use going forward:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$export INGRESS_DOMAIN=myistio.com<br style="text-rendering: optimizelegibility; line-height: 1.4em;" /></code></pre>
+<p style="text-rendering: optimizelegibility; margin-top: 0px; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;">Here I am using a domain name that I don't own, so I will be changing my /etc/hosts to fake the domain resolution. I will do the change later on.</p>
+<p>Now we can apply the following manifests to enable each of the services:</p>
+<p style="text-rendering: optimizelegibility; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;">Grafana:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$ </code><span color="#313131" face="Iosevka, monospace" style="color: #313131; font-family: Iosevka, monospace;">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: grafana-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-grafana
+      protocol: HTTP
+    hosts:
+    - "grafana.${INGRESS_DOMAIN}"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "grafana.${INGRESS_DOMAIN}"
+  gateways:
+  - grafana-gateway
+  http:
+  - route:
+    - destination:
+        host: grafana
+        port:
+          number: 3000
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: grafana
+  namespace: istio-system
+spec:
+  host: grafana
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+EOF</span><span style="color: #3d3c3c; font-family: Iosevka, monospace; font-size: 16px;">
+</span></pre>
+<p>Kiali:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$<br style="text-rendering: optimizelegibility; line-height: 1.4em;" /></code><span color="#313131" face="Iosevka, monospace" style="color: #313131; font-family: Iosevka, monospace;">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kiali-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-kiali
+      protocol: HTTP
+    hosts:
+    - "kiali.${INGRESS_DOMAIN}"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kiali-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "kiali.${INGRESS_DOMAIN}"
+  gateways:
+  - kiali-gateway
+  http:
+  - route:
+    - destination:
+        host: kiali
+        port:
+          number: 20001
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  host: kiali
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+EOF</span><span style="color: #3d3c3c; font-family: Iosevka, monospace; font-size: 16px;">
+</span></pre>
+<p>Prometheus:</p>
+<p></p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$<br style="text-rendering: optimizelegibility; line-height: 1.4em;" /></code><span color="#313131" face="Iosevka, monospace" style="color: #313131; font-family: Iosevka, monospace;">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: prometheus-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-prom
+      protocol: HTTP
+    hosts:
+    - "prometheus.${INGRESS_DOMAIN}"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: prometheus-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "prometheus.${INGRESS_DOMAIN}"
+  gateways:
+  - prometheus-gateway
+  http:
+  - route:
+    - destination:
+        host: prometheus
+        port:
+          number: 9090
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: prometheus
+  namespace: istio-system
+spec:
+  host: prometheus
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+EOF</span><span style="color: #3d3c3c; font-family: Iosevka, monospace; font-size: 16px;">
+</span></pre>
+<p>and Jaeger</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$<br style="text-rendering: optimizelegibility; line-height: 1.4em;" /></code><span color="#313131" face="Iosevka, monospace" style="color: #313131; font-family: Iosevka, monospace;">cat &lt;&lt;EOF | kubectl apply -f -
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: tracing-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http-tracing
+      protocol: HTTP
+    hosts:
+    - "tracing.${INGRESS_DOMAIN}"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tracing-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "tracing.${INGRESS_DOMAIN}"
+  gateways:
+  - tracing-gateway
+  http:
+  - route:
+    - destination:
+        host: tracing
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: tracing
+  namespace: istio-system
+spec:
+  host: tracing
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+---
+EOF</span><span style="color: #3d3c3c; font-family: Iosevka, monospace; font-size: 16px;">
+</span></pre>
+<p>My services should be accessible at:</p>
+<ul>
+<li>Kiali: http://kiali.myistio.com:31857</li>
+<li>Prometheus: http://prometheus.myistio.com:31857</li>
+<li>Grafana: http://grafana.myistio.com:31857</li>
+<li>Tracing: http://tracing.myistio.com:31857</li>
+</ul>
+<p>For these to work you need to update you /etc/hosts to forward to your minikube ip. For me that looks like:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><span color="#313131" style="color: #313131;"><span face="Iosevka, monospace" style="font-family: Iosevka, monospace;">$ cat /etc/hosts<br />...<br />192.168.64.19 kiali.myistio.com
+192.168.64.19 prometheus.myistio.com
+192.168.64.19 grafana.myistio.com
+192.168.64.19 tracing.myistio.com<br />...</span></span></pre>
+<p>Now let's visit these dashboards one by one and see how we can use them.</p>

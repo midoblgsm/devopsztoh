@@ -1,0 +1,54 @@
+<p>Now we are ready to write our first Docker application. Remember our first Go Rest App? Let's take it back and dockerize it. We already have this main.go file that is simply starting a http server to say hello REST!</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #313131; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><span color="#4a90e2" face="Iosevka, monospace" style="text-rendering: optimizelegibility; margin: 0px; padding: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: 1.4em; font-family: Iosevka, monospace; vertical-align: baseline; color: #4a90e2;">package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
+
+func helloHandlerFunc(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "hello REST!")
+}
+
+func main() {
+	router := mux.NewRouter()
+	router.HandleFunc("/", helloHandlerFunc)<br style="text-rendering: optimizelegibility; line-height: 1.4em;" />	log.Fatal(http.ListenAndServe(":8777", router))
+}</span></pre>
+<p>Now to make this application run in a docker container, we need to create a Dockerfile. Let's use your favorite editor and a document called <em>Dockerfile&nbsp;</em>to the same location as the main.go file.&nbsp;Docker builds images automatically by reading the instructions from the Dockerfile.</p>
+<div class="language-dockerfile highlighter-rouge" style="box-sizing: border-box; margin: 15px 0px;">
+<div class="highlight" style="box-sizing: border-box;">
+<pre class="highlight" style="box-sizing: border-box; overflow: auto; padding: 9.5px; margin-top: 0px; margin-bottom: 10px; line-height: 1.42857; background-color: #f5f5f5; border: 1px solid #cccccc; border-radius: 4px; word-break: normal !important;"><code style="box-sizing: border-box; border-radius: 0px; overflow-x: auto; overflow-wrap: normal;"><span class="k" style="color: #8b008b; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; white-space: pre; box-sizing: border-box;">FROM</span><span class="s" style="color: #cd5555; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; white-space: pre; box-sizing: border-box;"> golang<br /></span><span class="k" style="color: #8b008b; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; white-space: pre; box-sizing: border-box;"><br />WORKDIR<span class="s" style="color: #cd5555; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; white-space: pre; box-sizing: border-box;"> /go/src/app</span><br />COPY</span><span class="s" style="color: #cd5555; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; white-space: pre; box-sizing: border-box;"> . .</span><span color="rgba(0, 0, 0, 0)" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: rgba(0, 0, 0, 0); font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="white-space: pre;">
+<br /></span></span><span class="k" style="color: #8b008b; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; white-space: pre; box-sizing: border-box;">RUN <span class="s" style="box-sizing: border-box;"><span color="#cd5555" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: #cd5555; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="white-space: pre;">go get -d -v ./...<br /></span></span></span></span><span class="k" style="color: #8b008b; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; white-space: pre; box-sizing: border-box;">RUN</span><span class="s" style="box-sizing: border-box;"><span color="#cd5555" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: #cd5555; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="white-space: pre;"><span color="#cd5555" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: #cd5555; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="white-space: pre;"> go build -o app main.go<br /><span class="k" style="color: #8b008b; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; white-space: pre; box-sizing: border-box;"><br />CMD</span> ["./app"]</span></span></span></span><span color="#cd5555" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: #cd5555; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="white-space: pre;"><br /></span></span></span><span color="rgba(0, 0, 0, 0)" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: rgba(0, 0, 0, 0); font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="white-space: pre;"><span color="#33444c" face="Open Sans, sans-serif" style="color: #33444c; font-family: 'Open Sans', sans-serif;">
+</span></span></span></code></pre>
+</div>
+</div>
+<p>Each instruction creates one layer:</p>
+<ul>
+<li>FROM creates a layer from the&nbsp;golang Docker image, we can specify a version if we want</li>
+<li>WORKDIR specifies where all the files will be added</li>
+<li>COPY adds files from your Docker client&rsquo;s current directory. In our example it is our first REST folder</li>
+<li>RUN&nbsp;executes a specified command, in our case we get the needed dependencies then we build our binary</li>
+<li>CMD specifies what command to run within the container. In this command we specify the binary that we generated in the previous step</li>
+</ul>
+<p>When you run an image and generate a container, you add a new writable layer (the &ldquo;container layer&rdquo;) on top of the underlying layers. All changes made to the running container, such as writing new files, modifying existing files, and deleting files, are written to this thin writable container layer.</p>
+<p>Now we can build and run our docker container.</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;">$ docker build -t myFirstRest .
+$ docker run -p 8777:8777 </code>myFirstRest</pre>
+<p>Now that our container is running, you can open your browser&nbsp;<a href="http://0.0.0.0:8777/" target="_blank">http://0.0.0.0:8777/</a>&nbsp;. You can stop the container if you hit "Ctrl+c".&nbsp; You can also run the container with a -d argument to keep it running as a daemon.</p>
+<p>One of the advantages of using containers, is that you can share them with other people or reuse them from other machines without the need to rebuild or do whatsoever. The only thing that we need is to have a docker hub account. If you don't have one already, please go to&nbsp;<a href="https://hub.docker.com" target="_blank">https://hub.docker.com</a>&nbsp;and create your account. A docker hub account is like a github account, it allows you to push and pull docker images and share them between users and environments. Docker hub is not the only registry, there are many others.You can even setup your private registry.</p>
+<p>If you want to push your first docker image to the registry, after creating your user, you can open your terminal and login:</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;">$ docker login</code></pre>
+<p>In order to push an image you need to tag it with the right tag. A tag is composed of 3 parts:</p>
+<ul>
+<li>The repository: this can be your personal user ID or the ID of any other repository that you have permissions to use</li>
+<li>The image name: the name of your application used to identify it within the repository</li>
+<li>The version: version of your application, if you don't specify anything "latest" will be used</li>
+</ul>
+<p>We can tag our previous image as follow (please change the repo with your docker ID):</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;">$ docker tag myfirstrest:latest &lt;repo&gt;m/myfirstrest:0.0.1</code></pre>
+<p>Now you can push your docker image to docker hub and share it with anyone.</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;">$ docker push &lt;repo&gt;m/myfirstrest:0.0.1</code></pre>
+<p>If you go back to docker hub, you will be able to see your image published there. You can share it with anyone. Congratulations!</p>

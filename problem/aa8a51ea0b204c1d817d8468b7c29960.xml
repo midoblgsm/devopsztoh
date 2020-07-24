@@ -1,0 +1,12 @@
+<problem display_name="Multiple Choice with Hints and Feedback" markdown="&gt;&gt;What is the role of net/http package. &lt;&lt;&#10;&#10;( ) Create REST calls{{not quite that!}}&#10;(x) Provides HTTP client and server implementations&#10;( ) Implements http routing for REST {{not quite that!}}&#10;&#10;">
+  <multiplechoiceresponse>
+    <label>What is the role of net/http package. </label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">Create REST calls <choicehint>not quite that!</choicehint>
+</choice>
+      <choice correct="true">Provides HTTP client and server implementations</choice>
+      <choice correct="false">Implements http routing for REST <choicehint>not quite that!</choicehint>
+</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

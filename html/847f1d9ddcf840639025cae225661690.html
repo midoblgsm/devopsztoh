@@ -1,0 +1,113 @@
+<h4>Request Routing</h4>
+<p>Istio allows to route requests dynamically to multiple versions of a microservice.&nbsp;In the istio folder, you can run the following command to route all the traffic to only v1 of all the services:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$</code>kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml</pre>
+<p style="text-rendering: optimizelegibility; margin-top: 0px; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;">Now if you start refreshing the application, you will notice that the reviews are not changing at all because we forced the application to go to only one version all the time. We will do the same in the live session using kiali.</p>
+<h4>Fault injection</h4>
+<p>One powerful feature that istio offers to test the resiliency is the fault injection. This feature allows you to test different failure scenarios and whether or not your system is ready for them. Your system should accommodate the different failure scenarios by showing a meaningful message to your customers.</p>
+<p style="font-size: 16px;">Let's inject a 7s delay between the reviews and ratings service:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$</code>kubectl apply -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml</pre>
+<p style="font-size: 16px;">Let's inject a 7s delay between the reviews and ratings service for a particular user (mohamed in this case):</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;">---<br />apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ratings
+spec:
+  hosts:
+  - ratings
+  http:
+  - match:
+    - headers:
+        end-user:
+          exact: mohamed
+    fault:
+      delay:
+        percentage:
+          value: 100.0
+        fixedDelay: 7s
+    route:
+    - destination:
+        host: ratings
+        subset: v1
+  - route:
+    - destination:
+        host: ratings
+        subset: v1</pre>
+<p style="text-rendering: optimizelegibility; margin-top: 0px; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;">Signing in as the user mohamed will show you that the rating service will hang for few seconds before failing. We can fix that by routing all the traffic to v3 or reviews service and by reducing the delay to 2s.&nbsp;</p>
+<p style="text-rendering: optimizelegibility; margin-top: 0px; margin-right: 0px; margin-left: 0px; padding: 0px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; font-size: 16px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; vertical-align: baseline; color: #313131;">We can also try to inject an error for the rating service. Let's change the previous rule to:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;">---<br /></span><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;">apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ratings
+spec:
+  hosts:
+  - ratings
+  http:
+  - match:
+    - headers:
+        end-user:
+          exact: mohamed
+    fault:
+      abort:
+        percentage:
+          value: 100.0
+        httpStatus: 500
+    route:
+    - destination:
+        host: ratings
+        subset: v1
+  - route:
+    - destination:
+        host: ratings
+        subset: v1<br /></span></pre>
+<p>You can see that as the user mohamed, the rating service will always return a 500 error. This is how you test that your services are ready for failures and that they are resilient enough.</p>
+<p style="font-size: 16px;">Let's&nbsp;clean this up to continue the rest of the course:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$</code>kubectl delete -f samples/bookinfo/networking/virtual-service-ratings-test-delay.yaml</pre>
+<h4>Traffic shifting</h4>
+<p>Traffic routing is very useful to A/B testing and canary releases. You can use istio traffic shifting to take a percentage of your traffic and direct it to a new version of your service. If you are satisfied, you can increase that percentage slowly until you are&nbsp;100% sure that you want to promote this version. Then you can shift 100% of your traffic to the new version. Let's suppose that we are on v1 of all the services.</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$</code>kubectl apply -f samples/bookinfo/networking/virtual-service-all-v1.yaml</pre>
+<p>Now we want to test our v3 of the review service, we can shift 50% of the traffic from v1 to v3.</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 1em; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; color: #313131; box-sizing: border-box;">$</code>kubectl apply -f samples/bookinfo/networking/virtual-service-reviews-50-v3.yaml</pre>
+<p>The content of this virtual service is the following:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;">---<br /></span><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;">apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: reviews
+spec:
+  hosts:
+    - reviews
+  http:
+  - route:
+    - destination:
+        host: reviews
+        subset: v1
+      weight: 50
+    - destination:
+        host: reviews
+        subset: v3
+      weight: 50<br /></span></pre>
+<p>Now we can test that v3 is working as we expect it. Then we can decide whether to proceed and promote v3 as our review service or to rollback and continue using v1 by shifting the traffic.</p>
+<h4>Dark release</h4>
+<p>Using these same features, you can easily do safe dark releases. In a dark release, you deploy a new version but you enable it only for a particular set of users. We can do that&nbsp; by applying the following Virtual service:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; font-family: Iosevka, monospace; font-size: 16px; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; color: #3d3c3c; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><span color="#3d3c3c" face="Iosevka, monospace" style="font-size: 16px; color: #3d3c3c; font-family: Iosevka, monospace;">---<br /></span><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;">kind: VirtualService
+apiVersion: networking.istio.io/v1alpha3
+metadata:
+  name: reviews
+spec:
+  hosts:
+    - reviews
+  http:
+    - match:
+        - headers:
+            end-user:
+              exact: mohamed
+      route:
+        - destination:
+            host: reviews
+            subset: v3
+          weight: 100
+    - route:
+        - destination:
+            host: reviews
+            subset: v1
+          weight: 100</span></pre>
+<p>Now all your users will see the v1 of the review service. The only user that can see your v3 is the user mohamed. This is a very useful way of deploying your new versions to production and debugging them before hitting your final users. Once you are sure that everything is alright, you can promote this version for more or for all your users.</p>

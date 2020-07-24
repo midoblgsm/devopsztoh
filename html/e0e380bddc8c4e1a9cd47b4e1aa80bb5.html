@@ -1,0 +1,13 @@
+<p>Installing a test version of concourse is&nbsp;straightforward. It can be done on a single machine or it can be distributed. To have a production ready system, you need to do more work.</p>
+<p>For the sake of our course we will do the quickstart recommended by the Concourse team.</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;">$ <span class="token function" style="box-sizing: border-box; color: #4a90e2;">wget</span> https://concourse-ci.org/docker-compose.yml
+$ docker-compose up -d</code></pre>
+<p>The prerequisite here is to have docker and docker-compose installed in your machine. Depending on your network bandwidth, this might take some time in the first execution to download the docker images.</p>
+<p>If everything went well you can access concourse dashboard at localhost:8080. You can log in with the username/password as test/test.</p>
+<p>The dashboard will look like the following screenshot:<img height="882" width="1562" src="/static/Screen_Shot_2020-04-21_at_10.15.00_AM.png" alt="concoursedashboard" /></p>
+<p>You can login and download the cli binary that will allow you to talk to concourse. After downloading the binary (called fly), please make sure to add it to your path. If you don't know how to add the binary to your path, please ask google or reach out to me.</p>
+<p>Once your system is ready you can start interacting with concourse using fly cli.</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: rgb(239, 238, 238); color: rgb(61, 60, 60); padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;">$ fly -t devops login -c http://localhost:8080 -u <span class="token builtin class-name" style="box-sizing: border-box; color: rgb(122, 115, 115);">test</span> -p <span class="token builtin class-name" style="box-sizing: border-box; color: rgb(122, 115, 115);">test</span>
+logging <span class="token keyword" style="box-sizing: border-box; color: rgb(74, 144, 226);">in</span> to team <span class="token string" style="box-sizing: border-box; color: rgb(122, 115, 115);">'main'</span>
+
+target saved</code></pre>

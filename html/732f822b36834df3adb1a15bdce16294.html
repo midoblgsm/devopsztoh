@@ -1,0 +1,34 @@
+<p></p>
+<p>Now that our container is up and running, there is a very important feature that docker offers to optimize our docker image. It is called multi-stage build. That kind of build allows to further reduce the size of the produced image. To give an idea about how much we can gain by using that, let's check the size of our container image before the optimization.</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;">$ docker images | grep shoppingcart          
+shoppingcart                                      latest                     573d0b0bee2a        13 minutes ago      901MB</code></pre>
+<p>This command lists the images, with a small filter, we can see that our shopping cart image has a 901MB size. Quite fat for a docker image. But understandable, because it has all the golang machinery to build our binary. In order to optimize our image, we can use the multi-stage build to keep only what we need to run our code. After all, we don't need go installation to run the binary.</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;">
+FROM golang as build
+RUN mkdir shoppingcart
+WORKDIR /shoppingcart
+COPY go.mod .
+COPY go.sum .
+
+# Get dependancies - will also be cached if we won't change mod/sum
+RUN go mod download
+# COPY the source code as the last step
+COPY . .
+
+# Build the binary
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -a -installsuffix cgo -o /go/bin/shoppingcart
+
+FROM scratch
+COPY --from=build /go/bin/shoppingcart /go/bin/shoppingcart
+ENTRYPOINT ["/go/bin/shoppingcart"]
+</code></pre>
+<p>In this new file we split our dockerfile to two stages. The first stage will build the binary, while the second will be our production container. After building our binary in the build stage, we start the new stage from scratch (a specific image used for super minimal images). We only copy over the binary and specify that this binary will be used as our entrypoint.&nbsp;</p>
+<p>Now let's build and run our container:</p>
+<pre style="text-rendering: optimizelegibility; font-family: monospace, monospace; font-size: 11.9px; padding: 16px; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.45; vertical-align: baseline; color: #244357; overflow-wrap: normal; box-sizing: border-box; overflow: auto; background-color: #fbfbfc; border-radius: 3px;"><code style="text-rendering: optimizelegibility; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.75; vertical-align: baseline; border-radius: 1px; background-image: initial; color: #313131; box-sizing: border-box; overflow-wrap: break-word; word-break: normal; white-space: pre;">$ docker  build -t shoppingcart .
+$ docker run -p 7778:7778 shoppingcart:latest
+2020/04/26 18:38:09 Starting shoppingcart on port 7778 ....
+2020/04/26 18:38:09 CTL-C to exit/stop shoppingcart service</code></pre>
+<p>You can test the code as usual to check that everything works as expected. Most importantly, let's check the size of the new image.</p>
+<pre style="box-sizing: border-box; font-family: monospace, monospace; font-size: 11.9px; overflow-wrap: normal; padding: 16px; overflow: auto; line-height: 1.45; background-color: #fbfbfc; border-radius: 3px; color: #244357;"><code style="box-sizing: border-box; font-family: 'Ubuntu Mono', consolas, monaco, monospace; font-size: 11.9px; overflow-wrap: break-word; background-image: initial; border-radius: 1px; margin: 0px; line-height: 1.75; word-break: normal; white-space: pre; border: 0px;">$ docker images | grep shoppingcart
+shoppingcart                                       latest                     0051d2e4e6e5        18 minutes ago      8.11MB</code></pre>
+<p>As you can see, it is a drastic change to go from 901MB to 8.11MB in the size of the image. This can reduce the time to pull, push. and start the image enormously.</p>

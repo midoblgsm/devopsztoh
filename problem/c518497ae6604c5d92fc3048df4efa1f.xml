@@ -1,0 +1,11 @@
+<problem display_name="Multiple Choice with Hints and Feedback" markdown="&gt;&gt;What is the role of Gorilla Mux? &lt;&lt;&#10;&#10;( ) Provides HTTP client and server implementations {{well, this is the role of net/http.}}&#10;() Handles errors for http servers&#10;(x)  Implements a request router and dispatcher for matching incoming requests to their respective handler&#10;">
+  <multiplechoiceresponse>
+    <label>What is the role of Gorilla Mux? </label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">Provides HTTP client and server implementations <choicehint>well, this is the role of net/http.</choicehint>
+</choice>
+      <choice correct="false">Handles errors for http servers</choice>
+      <choice correct="true">Implements a request router and dispatcher for matching incoming requests to their respective handler</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

@@ -1,0 +1,15 @@
+<problem display_name="call by reference " markdown="&gt;&gt;Which of the following is true about call by reference method of parameter passing in Go?&lt;&lt;&#10;&#10;() This method copies the address of an argument into the formal parameter. {{What else}}&#10;() Inside the function, the address is used to access the actual argument used in the call. {{What else}}&#10;() Changes made to the parameter affect the argument.{{What else}}&#10;(x) All of the above.{{You nailed it}}&#10;">
+  <multiplechoiceresponse>
+    <label>Which of the following is true about call by reference method of parameter passing in Go?</label>
+    <choicegroup type="MultipleChoice">
+      <choice correct="false">This method copies the address of an argument into the formal parameter. <choicehint>What else</choicehint>
+</choice>
+      <choice correct="false">Inside the function, the address is used to access the actual argument used in the call. <choicehint>What else</choicehint>
+</choice>
+      <choice correct="false">Changes made to the parameter affect the argument. <choicehint>What else</choicehint>
+</choice>
+      <choice correct="true">All of the above. <choicehint>You nailed it</choicehint>
+</choice>
+    </choicegroup>
+  </multiplechoiceresponse>
+</problem>

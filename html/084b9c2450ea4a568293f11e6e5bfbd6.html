@@ -1,0 +1,44 @@
+<p>Distributed applications are composed of different components. Each&nbsp;component has a specific role and can be developed by a specific team. In order to make the development of these components decoupled from each other, teams choose to split them into different microservices. With that, every team should only communicate the interface of its&nbsp;component (inputs/outputs) and can keep the ownership of its development cycle independently from the other components/teams. A stable component development can have a longer cycle of updates (a release per 6 months), while a new component can have a shorter one (up to many releases per day). As far as you are backward compatible and respecting your advertised API, you can do new releases as much as you can. These separate components generally end up deployed using different containers, and one container is not enough to handle all of them. It is also not a good practice to have different components with different functionalities living in the same container unless there is a very compelling reason. There are many blogs in the internet that explain why and how we should break down a monolithic application into microservices.</p>
+<p>For the purpose of illustrating this section. I created a small distributed applications (see image below) composed of 3 parts:</p>
+<ul>
+<li>A react front-end that shows a list of products with their description and rating (<a href="https://github.com/midoblgsm/react-products" target="_blank">github</a>)</li>
+<li>A go service that returns a list of products with their ratings in a json format (<a href="https://github.com/midoblgsm/go-products" target="_blank">github</a>)</li>
+<li>A go service that returns the rating for a given product in a json format (<a href="https://github.com/midoblgsm/go-ratings" target="_blank">github</a>)</li>
+</ul>
+<p></p>
+<p><img height="179" width="848" src="/static/multipode1.png" alt="multipod1" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+<p>I will not get into the technical details of&nbsp;how each component is implemented and which frameworks are being used. The things that we need to know are the following:</p>
+<ul>
+<li>The react application is exposing the port 80 and should be mapped to any unused port in your machine</li>
+<li>The go products app is exposing the port 9999</li>
+<li>The go ratings app is exposing the port 9998</li>
+</ul>
+<p>Instead of running each docker container separately, there are tools out there to orchestrate and run the containers for us. One tool that comes with Docker is called Docker Compose.</p>
+<p>Compose allows to describe the distributed application in one file that explains how the components are started and connected. In order to run our application with Docker Compose, you need first to install Docker Compose if you haven't done that yet.&nbsp; You can follow the documentation in this&nbsp;<a href="https://docs.docker.com/compose/install/" target="_blank">link</a> to do the setup.</p>
+<p>Afterwards, let's create a docker-compose.yml file that will contain our simple setup.</p>
+<pre class="highlight" style="box-sizing: border-box; overflow: auto; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 13px; padding: 9.5px; margin-top: 0px; margin-bottom: 10px; line-height: 1.42857; color: #333333; background-color: #f5f5f5; border: 1px solid #cccccc; border-radius: 4px; word-break: normal !important;"><code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; color: inherit; border-radius: 0px; overflow-x: auto; white-space: pre; overflow-wrap: normal;">version: '3'
+services:
+  web:
+    image: midoblgsm/react-products:compose
+    ports:
+      - '8989:80'
+  products:
+    image: midoblgsm/go-products:compose
+    ports:
+      - '9999:9999'
+  ratings:
+    image: midoblgsm/go-ratings:compose
+    ports:
+      - '9998:9998'</code></pre>
+<p>This file says that our application is composed of 3 services. For each service, it is specifying the name of the service (web, products and ratings), the docker image to be used and the port mapping using the format port:port where the first port is the host port to be used externally to the container and the second port is the port being used by the application inside the container. Now we are ready to start our application, in your terminal go the root of the folder where you created the compose file and run the following:</p>
+<pre class="highlight" style="box-sizing: border-box; overflow: auto; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 13px; padding: 9.5px; margin-top: 0px; margin-bottom: 10px; line-height: 1.42857; color: #333333; background-color: #f5f5f5; border: 1px solid #cccccc; border-radius: 4px; word-break: normal !important;"><code style="box-sizing: border-box; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: inherit; color: inherit; border-radius: 0px; overflow-x: auto; white-space: pre; overflow-wrap: normal;"><span color="rgba(0, 0, 0, 0)" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: rgba(0, 0, 0, 0); font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="white-space: pre;">$ docker-compose up</span></span><span color="#333333" face="Menlo, Monaco, Consolas, Courier New, monospace" style="color: #333333; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;"><span style="font-size: 13px; white-space: pre;">                  
+Creating network "multipods_default" with the default driver
+Creating multipods_products_1 ... done
+Creating multipods_ratings_1  ... done
+Creating multipods_web_1      ... done
+Attaching to multipods_web_1, multipods_products_1, multipods_ratings_1
+products_1  | 2020/04/27 22:17:12 Starting Products API server on port 9999 ....
+products_1  | 2020/04/27 22:17:12 CTL-C to exit/stop Products API server
+ratings_1   | 2020/04/27 22:17:12 Starting Ratings API server on port 9998 ....
+ratings_1   | 2020/04/27 22:17:12 CTL-C to exit/stop Ratings API server</span></span></code></pre>
+<p>You can see here that the three containers got started and you can see your frontend at&nbsp;<a href="http://0.0.0.0:8989/" target="_blank">http://0.0.0.0:8989/</a>&nbsp;if you refresh a couple of times you should see the ratings change since they are generated randomly. The application is not that complicated but it serves as a good illustration that we can use moving forward.</p>

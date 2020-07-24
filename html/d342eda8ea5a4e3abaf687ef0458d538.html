@@ -1,0 +1,26 @@
+<p>To get started let's create main file main.go and put the following on it:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><span color="#4a90e2" face="Iosevka, monospace" style="color: #4a90e2; font-family: Iosevka, monospace;">package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+
+	"github.com/gorilla/mux"
+)
+
+func helloHandlerFunc(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "hello REST!")
+}
+
+func main() {
+	router := mux.NewRouter()
+	router.HandleFunc("/", helloHandlerFunc)<br />	log.Fatal(http.ListenAndServe(":8777", router))
+}</span></pre>
+<p>In this code, we are using the net/http package that implements the needed http client and server functionalities. On top of that we are using gorilla mux as the router that will identify which request should be handled by which function or method. In this example we implemented one handler called&nbsp;<span style="color: #4a90e2; font-family: Iosevka, monospace; background-color: #efeeee; white-space: pre-wrap;">helloHandlerFunc</span>&nbsp;that simply writes hello REST to the http Writer. In the main function we created the router and attached the handler function to the&nbsp;<span style="color: #4a90e2; font-family: Iosevka, monospace; background-color: #efeeee; white-space: pre-wrap;">"/"</span>&nbsp;location which refers to the root resource. We then associated the router to our http server.&nbsp;</p>
+<p>If you setup GO Modules, you need to do a <code>go mod init</code> to setup your dependencies.</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="color: #313131; font-family: Iosevka, monospace; font-size: 1em; text-rendering: optimizelegibility; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; box-sizing: border-box;">$</code><span color="#313131" face="Iosevka, monospace" style="color: #313131; font-family: Iosevka, monospace;">go run main.go</span></pre>
+<p>You can test your setup by either opening&nbsp;<a href="http://localhost:8777/" target="_blank">http://localhost:8777/</a> in your browser or by doing a curl:</p>
+<pre class=" language-bash" style="text-rendering: optimizelegibility; margin-top: 0px; margin-bottom: 1.5em; padding: 0.5rem; border: 0px; outline: 0px; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; box-sizing: border-box; background: #efeeee; overflow-x: auto;"><code class=" language-bash" style="color: #313131; font-family: Iosevka, monospace; font-size: 1em; text-rendering: optimizelegibility; margin: 0px; border: 0px; outline: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: 1.4em; vertical-align: baseline; border-radius: 0px; background-image: initial; box-sizing: border-box;">$</code><span color="#313131" face="Iosevka, monospace" style="color: #313131; font-family: Iosevka, monospace;">curl http://localhost:8777/
+Hello REST!%</span></pre>
+<p>We will use the same technique with our use case with some refactoring.</p>

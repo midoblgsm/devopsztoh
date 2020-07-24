@@ -1,0 +1,121 @@
+<p>Now we only have a CI pipeline that allows to run the tests for any new change. The next step is to have a full CICD pipeline that will run the tests, build our docker containers and deploy them whenever we have any new change. To do that let's change our pipeline file:</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;">$ cat pipeline.yaml<br />resource_types:
+  - name: kubernetes
+    type: docker-image
+    source:
+      repository: zlabjp/kubernetes-resource
+      tag: '1.17'
+
+resources:
+  - name: shopping-cart
+    type: git
+    source:
+      uri: git@github.com:midoblgsm/shoppingcart.git
+      branch: master
+      private_key: ((private-repo-key))
+
+  - name: shopping-cart-image
+    type: docker-image
+    source:
+      repository: midoblgsm/shopping-cart
+      username: midoblgsm
+      password: ((docker-password))
+      tag: dev
+
+  - name: kubernetes-production
+    type: kubernetes
+    source:
+      server: https://192.168.64.11:8443
+      token: ((kubernetes-token))
+      certificate_authority: ((kubernetes-ca))
+
+jobs:
+  - name: run-units-for-shopping-cart
+    public: true
+    plan:
+      - get: shopping-cart
+        trigger: true
+      - task: unit-tests
+        file: shopping-cart/ci/unit_tests.yaml
+
+  - name: build-shopping-cart-image
+    public: true
+    plan:
+      - get: shopping-cart
+        trigger: true
+        passed: [run-units-for-shopping-cart]
+      - put: shopping-cart-image
+        params: { build: shopping-cart }
+
+  - name: deploy-to-kubernetes
+    plan:
+      - get: shopping-cart
+        trigger: true
+        passed: [build-shopping-cart-image]
+      - put: kubernetes-production
+        params:
+          kubectl: apply -f shopping-cart/deployment/
+          wait_until_ready_selector: app=shoppingcart</code></pre>
+<p><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;">This&nbsp;pipeline has a resource type that defines how to manage kubernetes deployment. I has also three resources that we will be managing: the github repository that we will use to do our builds and deployments, the docker image that we will produce and the kubernetes deployment.</code></p>
+<p><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;">We define our Jobs to run the unit tests, build the docker image and push it to dockerhub registry and deploy the latest version to kubernetes. This is a representative pipeline that can cover a good percentage of your work. Please make sure to modify kubernetes server address. If you are using minikube, you can use "minikube ip" to get the right ip address.</code></p>
+<p>For this particular pipeline to succeed we need to have the variables&nbsp;added to our keys.yaml.</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;"><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;">$ cat keys.yaml
+</span></span><span face="Iosevka, monospace" style="font-family: Iosevka, monospace;">docker-password: &lt;your docker password&gt;
+private-repo-key: |
+  -----BEGIN OPENSSH PRIVATE KEY-----
+  ...your private key...
+  -----END OPENSSH PRIVATE KEY-----
+kubernetes-ca: |
+  -----BEGIN CERTIFICATE-----
+  ...your kubernetes-ca certficate
+  -----END CERTIFICATE-----
+kubernetes-token: &lt;your kube token&gt;</span><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;"><br /></span></span></code></pre>
+<p>Your docker password is used to push new images. Your private ssh key is used to manage the git repository.</p>
+<p>You can find your kubernetes-ca file by doing the following:</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;"><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;">$ kubectl config view <br /></span></span><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;"><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;">kubectl config view
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority: <span style="color: #800000;">/Users/m_mohamed/.minikube/ca.crt</span>
+    server: https://192.168.64.17:8443
+  name: minikube
+contexts:
+- context:
+    cluster: minikube
+    user: minikube
+  name: minikube
+current-context: minikube
+kind: Config
+preferences: {}
+users:
+- name: minikube
+  user:
+    client-certificate: /Users/m_mohamed/.minikube/client.crt
+    client-key: /Users/m_mohamed/.minikube/client.key<span style="font-size: 1em;"><br /></span></span></span></span></code></pre>
+<p>As you can see, my certificate-authority file is at&nbsp;/Users/m_mohamed/.minikube/ca.crt you can check yours, grab its content and add it to the keys.yaml file. Finally you can get the kubernetes token using kubectl:</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;"><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;">$ </span></span></code><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;">kubectl get secrets -n kube-system | grep default
+default-token-48mcb                              kubernetes.io/service-account-token   3      9m27s</span></pre>
+<p><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;"><span face="Iosevka, monospace">Grab the name of that secret and read its content using the following command:</span></code></p>
+<p></p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;"><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;">$ </span></span></code><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;">kubectl describe -n kube-system secret default-token-48mcb
+Name:         default-token-48mcb
+Namespace:    kube-system
+Labels:       &lt;none&gt;
+Annotations:  kubernetes.io/service-account.name: default
+              kubernetes.io/service-account.uid: 2668dbbf-e29d-4b68-993e-d6e61a79d7d7
+
+Type:  kubernetes.io/service-account-token
+
+Data
+====
+ca.crt:     1066 bytes
+namespace:  11 bytes
+token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IlA1dzdkM096c0VZbkJvYzFRbzE4bEpkMkNXSjhtNU42OVEzUFcxLW1RQmMifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJkZWZhdWx0LXRva2VuLTQ4bWNiIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQubmFtZSI6ImRlZmF1bHQiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC51aWQiOiIyNjY4ZGJiZi1lMjlkLTRiNjgtOTkzZS1kNmU2MWE3OWQ3ZDciLCJzdWIiOiJzeXN0ZW06c2VydmljZWFjY291bnQ6a3ViZS1zeXN0ZW06ZGVmYXVsdCJ9.wq80qP7GUTD5VzmC0T7b3UOFRazRj335NYv1NnUiRlU7M-fKdbx_agYxnrybjKLI0hwvlfA-nNBg-JM033K6BEQFPmUSOkdtFCZObHknOvoCjrABMwYIalAFxVRAqAuV_UjX8O7FtsXfKOi6RturnRgphWkpgmuzEhfczmVczhI8pCxRbe2uDIiwnFlsRQ-IOODE3k8-TUl_Kqs5TV3calriqrfcYc15IZ7b_iVJ6KBWkQe9heo13erdXDgadQxXJmD53PH8sE5SJuTZdC055dGRC42sQntTN4q4zc6xc1KqBLcxw8mK4RsF_qAbo9GHI9E9oZIiV2CYxu9BS6u2yQ</span></pre>
+<p>You can copy the token value and add it to the keys.yaml file. In general, you should never share your keys file publically. Even if you have a reason to add it to github, you have to add it only to a private repository.</p>
+<p>Finally, we are ready to apply our changes to the pipeline and see it working:</p>
+<pre class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 16px; background: #efeeee; color: #3d3c3c; padding: 0.5rem; overflow-x: auto; margin-top: 0px; margin-bottom: 1.5em;"><code class=" language-bash" style="box-sizing: border-box; font-family: Iosevka, monospace; font-size: 1em; background-image: initial; border-radius: 0px;"><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;">$ fly -t devops set-pipeline -p shopping-cart -c pipeline.yaml --load-vars-from keys.yaml<br />...<br />...<br /></span></span><span face="Iosevka, monospace" style="font-family: Iosevka, monospace;">apply configuration? [yN]:</span><span color="#3d3c3c" face="Iosevka, monospace" style="color: #3d3c3c; font-family: Iosevka, monospace;"><span style="font-size: 1em;"><br /></span></span></code></pre>
+<p>You should be able to check your configuration changes every time you try to update the pipeline. If everything looks good you can answer "y" and your pipeline will be configured.</p>
+<p><img height="600" width="1800" src="/static/Screen_Shot_2020-05-30_at_2.02.58_PM.png" alt="running" /></p>
+<p>Your pipeline&nbsp;should pick up the changes and start building the docker image. Once that succeeds, that will trigger the deployment to your kubernetes environment.&nbsp;</p>
+<p><img height="600" width="1800" src="/static/Screen_Shot_2020-05-30_at_2.04.12_PM.png" alt="success" /></p>
+<p>If everything goes right you should be able to see the deployment in your kubernetes environment. You can check that you have the desired version of your application. And Voila, you have your first CICD pipeline that will take care of testing, building and deploying your code. You don't need to worry about that anymore, you can finally focus on your code instead.</p>

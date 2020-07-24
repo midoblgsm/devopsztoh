@@ -1,0 +1,14 @@
+<problem display_name="Checkboxes" markdown="&gt;&gt;What are some of the tools that istio deploys out of the box? &lt;&lt;&#10;&#10;[ ] Kibana&#10;[x] Grafana&#10;[x] Prometheus&#10;[ ] Zipkin&#10;[x] Jaeger&#10;[x] Kiali&#10;[ ] Splunk&#10;">
+  <choiceresponse>
+    <label>What are some of the tools that istio deploys out of the box? </label>
+    <checkboxgroup>
+      <choice correct="false">Kibana</choice>
+      <choice correct="true">Grafana</choice>
+      <choice correct="true">Prometheus</choice>
+      <choice correct="false">Zipkin</choice>
+      <choice correct="true">Jaeger</choice>
+      <choice correct="true">Kiali</choice>
+      <choice correct="false">Splunk</choice>
+    </checkboxgroup>
+  </choiceresponse>
+</problem>

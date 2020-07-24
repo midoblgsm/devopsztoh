@@ -1,0 +1,828 @@
+{
+    "1200px-Kubernetes_logo_without_workmark.svg__1_.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "1200px-Kubernetes_logo_without_workmark.svg__1_.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "1200px-Kubernetes_logo_without_workmark.svg (1).png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@1200px-Kubernetes_logo_without_workmark.svg__1_.png", 
+        "import_path": "1200px-Kubernetes_logo_without_workmark.svg (1).png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "1200px-Kubernetes_logo_without_workmark.svg__1_-png.jpg", 
+            null
+        ]
+    }, 
+    "ACCORD_Horizon_EuranovaTN.pdf": {
+        "contentType": "application/pdf", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "ACCORD_Horizon_EuranovaTN.pdf", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "ACCORD_Horizon_EuranovaTN.pdf", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@ACCORD_Horizon_EuranovaTN.pdf", 
+        "import_path": "ACCORD_Horizon_EuranovaTN.pdf", 
+        "locked": false, 
+        "thumbnail_location": null
+    }, 
+    "Istio_logo_txt.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Istio_logo_txt.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Istio_logo_txt.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Istio_logo_txt.png", 
+        "import_path": "Istio_logo_txt.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Istio_logo_txt-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-04-21_at_10.15.00_AM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-04-21_at_10.15.00_AM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-04-21 at 10.15.00 AM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-04-21_at_10.15.00_AM.png", 
+        "import_path": "Screen Shot 2020-04-21 at 10.15.00 AM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-04-21_at_10.15.00_AM-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-04-21_at_10.46.12_AM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-04-21_at_10.46.12_AM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-04-21 at 10.46.12 AM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-04-21_at_10.46.12_AM.png", 
+        "import_path": "Screen Shot 2020-04-21 at 10.46.12 AM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-04-21_at_10.46.12_AM-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-04-24_at_7.01.05_AM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-04-24_at_7.01.05_AM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-04-24 at 7.01.05 AM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-04-24_at_7.01.05_AM.png", 
+        "import_path": "Screen Shot 2020-04-24 at 7.01.05 AM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-04-24_at_7.01.05_AM-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-05-30_at_2.02.58_PM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-05-30_at_2.02.58_PM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-05-30 at 2.02.58 PM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-05-30_at_2.02.58_PM.png", 
+        "import_path": "Screen Shot 2020-05-30 at 2.02.58 PM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-05-30_at_2.02.58_PM-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-05-30_at_2.04.12_PM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-05-30_at_2.04.12_PM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-05-30 at 2.04.12 PM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-05-30_at_2.04.12_PM.png", 
+        "import_path": "Screen Shot 2020-05-30 at 2.04.12 PM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-05-30_at_2.04.12_PM-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-06-03_at_5.19.52_PM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-06-03_at_5.19.52_PM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-06-03 at 5.19.52 PM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-06-03_at_5.19.52_PM.png", 
+        "import_path": "Screen Shot 2020-06-03 at 5.19.52 PM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-06-03_at_5.19.52_PM-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-06-03_at_5.43.47_PM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-06-03_at_5.43.47_PM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-06-03 at 5.43.47 PM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-06-03_at_5.43.47_PM.png", 
+        "import_path": "Screen Shot 2020-06-03 at 5.43.47 PM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-06-03_at_5.43.47_PM-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-06-03_at_5.44.22_PM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-06-03_at_5.44.22_PM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-06-03 at 5.44.22 PM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-06-03_at_5.44.22_PM.png", 
+        "import_path": "Screen Shot 2020-06-03 at 5.44.22 PM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-06-03_at_5.44.22_PM-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-06-03_at_5.46.49_PM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-06-03_at_5.46.49_PM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-06-03 at 5.46.49 PM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-06-03_at_5.46.49_PM.png", 
+        "import_path": "Screen Shot 2020-06-03 at 5.46.49 PM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-06-03_at_5.46.49_PM-png.jpg", 
+            null
+        ]
+    }, 
+    "Screen_Shot_2020-06-03_at_5.47.03_PM.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Screen_Shot_2020-06-03_at_5.47.03_PM.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Screen Shot 2020-06-03 at 5.47.03 PM.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Screen_Shot_2020-06-03_at_5.47.03_PM.png", 
+        "import_path": "Screen Shot 2020-06-03 at 5.47.03 PM.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Screen_Shot_2020-06-03_at_5.47.03_PM-png.jpg", 
+            null
+        ]
+    }, 
+    "Swagger-logo.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "Swagger-logo.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "Swagger-logo.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@Swagger-logo.png", 
+        "import_path": "Swagger-logo.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "Swagger-logo-png.jpg", 
+            null
+        ]
+    }, 
+    "arch.svg": {
+        "contentType": "image/svg+xml", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "arch.svg", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "arch.svg", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@arch.svg", 
+        "import_path": "arch.svg", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "arch.svg", 
+            null
+        ]
+    }, 
+    "branches.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "branches.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "branches.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@branches.png", 
+        "import_path": "branches.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "branches-png.jpg", 
+            null
+        ]
+    }, 
+    "concourse-logo-42A9F81B42-seeklogo.com.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "concourse-logo-42A9F81B42-seeklogo.com.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "concourse-logo-42A9F81B42-seeklogo.com.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@concourse-logo-42A9F81B42-seeklogo.com.png", 
+        "import_path": "concourse-logo-42A9F81B42-seeklogo.com.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "concourse-logo-42A9F81B42-seeklogo.com-png.jpg", 
+            null
+        ]
+    }, 
+    "concourse-sample-pipeline.gif": {
+        "contentType": "image/gif", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "concourse-sample-pipeline.gif", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "concourse-sample-pipeline.gif", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@concourse-sample-pipeline.gif", 
+        "import_path": "concourse-sample-pipeline.gif", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "concourse-sample-pipeline-gif.jpg", 
+            null
+        ]
+    }, 
+    "devops.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "devops.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "devops.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@devops.png", 
+        "import_path": "devops.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "devops-png.jpg", 
+            null
+        ]
+    }, 
+    "devops2.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "devops2.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "devops2.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@devops2.png", 
+        "import_path": "devops2.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "devops2-png.jpg", 
+            null
+        ]
+    }, 
+    "docker.svg": {
+        "contentType": "image/svg+xml", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "docker.svg", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "docker.svg", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@docker.svg", 
+        "import_path": "docker.svg", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "docker.svg", 
+            null
+        ]
+    }, 
+    "docker_animals_Uai0wn6.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "docker_animals_Uai0wn6.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "docker_animals_Uai0wn6.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@docker_animals_Uai0wn6.png", 
+        "import_path": "docker_animals_Uai0wn6.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "docker_animals_Uai0wn6-png.jpg", 
+            null
+        ]
+    }, 
+    "generatestub.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "generatestub.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "generatestub.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@generatestub.png", 
+        "import_path": "generatestub.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "generatestub-png.jpg", 
+            null
+        ]
+    }, 
+    "gitisnotgithub.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "gitisnotgithub.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "gitisnotgithub.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@gitisnotgithub.png", 
+        "import_path": "gitisnotgithub.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "gitisnotgithub-png.jpg", 
+            null
+        ]
+    }, 
+    "gitisnotgithub2.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "gitisnotgithub2.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "gitisnotgithub2.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@gitisnotgithub2.png", 
+        "import_path": "gitisnotgithub2.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "gitisnotgithub2-png.jpg", 
+            null
+        ]
+    }, 
+    "gittrees.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "gittrees.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "gittrees.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@gittrees.png", 
+        "import_path": "gittrees.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "gittrees-png.jpg", 
+            null
+        ]
+    }, 
+    "golangish.jpg": {
+        "contentType": "image/jpeg", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "golangish.jpg", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "golangish.jpg", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@golangish.jpg", 
+        "import_path": "golangish.jpg", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "golangish.jpg", 
+            null
+        ]
+    }, 
+    "mm.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "mm.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "mm.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@mm.png", 
+        "import_path": "mm.png", 
+        "locked": false, 
+        "thumbnail_location": null
+    }, 
+    "multipode1.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "multipode1.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "multipode1.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@multipode1.png", 
+        "import_path": "multipode1.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "multipode1-png.jpg", 
+            null
+        ]
+    }, 
+    "noistio.svg": {
+        "contentType": "image/svg+xml", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "noistio.svg", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "noistio.svg", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@noistio.svg", 
+        "import_path": "noistio.svg", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "noistio.svg", 
+            null
+        ]
+    }, 
+    "ops.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "ops.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "ops.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@ops.png", 
+        "import_path": "ops.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "ops-png.jpg", 
+            null
+        ]
+    }, 
+    "pipeline.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "pipeline.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "pipeline.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@pipeline.png", 
+        "import_path": "pipeline.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "pipeline-png.jpg", 
+            null
+        ]
+    }, 
+    "startup-rocket-banner.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "startup-rocket-banner.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "startup-rocket-banner.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@startup-rocket-banner.png", 
+        "import_path": "startup-rocket-banner.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "startup-rocket-banner-png.jpg", 
+            null
+        ]
+    }, 
+    "tdd.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "tdd.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "tdd.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@tdd.png", 
+        "import_path": "tdd.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "tdd-png.jpg", 
+            null
+        ]
+    }, 
+    "vmvccontainer.png": {
+        "contentType": "image/png", 
+        "content_son": {
+            "category": "asset", 
+            "course": "DevOps2", 
+            "name": "vmvccontainer.png", 
+            "org": "Horizon", 
+            "revision": null, 
+            "run": "2020_T4", 
+            "tag": "c4x"
+        }, 
+        "displayname": "vmvccontainer.png", 
+        "filename": "asset-v1:Horizon+DevOps2+2020_T4+type@asset+block@vmvccontainer.png", 
+        "import_path": "vmvccontainer.png", 
+        "locked": false, 
+        "thumbnail_location": [
+            "c4x", 
+            "Horizon", 
+            "DevOps2", 
+            "thumbnail", 
+            "vmvccontainer-png.jpg", 
+            null
+        ]
+    }
+}

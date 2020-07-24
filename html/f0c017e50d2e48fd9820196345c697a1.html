@@ -1,0 +1,20 @@
+<p>Istio&nbsp; is logically split into a data plane and a control plane.</p>
+<ul>
+<li>The data plane is composed of a set of intelligent proxies deployed as sidecars. These proxies mediate and control all network communication between microservices. They also collect and report telemetry on all mesh traffic.</li>
+<li>The control plane manages and configures the proxies to route traffic.</li>
+</ul>
+<p><img height="448" width="642" src="/static/arch.svg" alt="istioarch" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+<p></p>
+<p>The data plane proxies are deployed as sidecars to pods to enable many functionalities:</p>
+<ul>
+<li>Dynamic service discovery</li>
+<li>Load balancing</li>
+<li>TLS termination</li>
+<li>HTTP/2 and gRPC proxies</li>
+<li>Circuit breakers</li>
+<li>Health checks</li>
+<li>Staged rollouts with %-based traffic split</li>
+<li>Fault injection</li>
+<li>Rich metrics</li>
+</ul>
+<p>The control plane enables&nbsp;service discovery, configuration and certificate management. The Pilot component incorporates the rules provided by the control plane regarding traffic behavior and converts them into configurations which are applied by the proxy. Pilot also provides service discovery for&nbsp;proxy sidecars and intelligent routing to assist with traffic management. Galley validates user-specified configurations on behalf of the control plane. This allows Istio to be used transparently across different orchestration systems. Finally, Citadel manages and controls end-user authentication with built-in identity management. Citadel can be used to upgrade any unencrypted traffic in the service mesh.</p>

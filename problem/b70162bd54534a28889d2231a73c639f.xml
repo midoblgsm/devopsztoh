@@ -1,0 +1,11 @@
+<problem display_name="Checkboxes" markdown="&gt;&gt;What concourse is used for. &lt;&lt;&#10;&#10;[x] Continuous Integration&#10;[ ] Monitoring the application&#10;[ ] Securing the application&#10;[x] Continuous Delivery&#10;">
+  <choiceresponse>
+    <label>What concourse is used for. </label>
+    <checkboxgroup>
+      <choice correct="true">Continuous Integration</choice>
+      <choice correct="false">Monitoring the application</choice>
+      <choice correct="false">Securing the application</choice>
+      <choice correct="true">Continuous Delivery</choice>
+    </checkboxgroup>
+  </choiceresponse>
+</problem>
